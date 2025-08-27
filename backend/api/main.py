@@ -1,9 +1,14 @@
 from typing import Union
+from .routers import auth, workouts
+
+from .database import engine, Base
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+Base.metadata.create_all(bind=engine)
 
 app.add_middleware(
     CORSMiddleware,
@@ -17,3 +22,6 @@ app.add_middleware(
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
+
+app.include_router(auth.router)
+app.include_router(workouts.router)

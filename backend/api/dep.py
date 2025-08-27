@@ -10,7 +10,7 @@ from .database import SessionLocal
 
 load_dotenv()  # Load environment variables from .env file
 
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv("AUTH_SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
 
 def get_db():
