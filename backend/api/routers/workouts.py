@@ -84,11 +84,21 @@ def delete_workout(workout_id: int, db: db_dependency, user: user_dependency):
     db.commit()
     return {"detail": f"Workout '{db_workout.name}' deleted successfully"}
 
-# @router.delete("/")
-# def delete_workout(db: db_dependency, user: user_dependency, workout_id: int):
-#     db_workout = db.query(Workout).filter(Workout.id == workout_id).first()
-#     if db_workout:
-#         db.delete(db_workout)
-#         db.commit()
-#         return {"detail": "Workout deleted"}
-#     return {"detail": "Workout not found"}
+@router.put("/{workout_id}")
+def update_workout(workout_id: int, workout: WorkoutCreate, db: db_dependency, user: user_dependency):
+    db_workout = db.query(Workout).filter(Workout.id == workout_id).first()
+
+    if db_workout is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Workout not found")
+
+    if db_workout.user_id != user.get('id'):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=f"Sorry, you cannot update '{db_workout.name}', as it is not your workout"
+        )
+
+    db_workout.name = workout.name
+    db_workout.description = workout.description
+    db.commit()
+    db.refresh(db_workout)
+    return db_workout

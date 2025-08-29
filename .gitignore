@@ -207,3 +207,60 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# NEXTjs build output
+.next/
+out/
+build/
+.cache/
+# If using Vercel for deployment
+.vercel/
+.now/
+# If using Netlify for deployment
+.netlify/
+# If using Gatsby for deployment
+public/
+# If using SvelteKit for deployment
+.svelte-kit/
+build/
+output/
+.netlify/
+.vercel/
+
+
+
+
+# dependencies
+frontend/node_modules
+frontend/pnp
+frontend/pnp.*
+frontend/yarn/*
+frontend/!yarn/patches
+frontend/!yarn/plugins
+frontend/!yarn/releases
+frontend!yarn/versions
+
+# testing
+frontend/coverage
+
+
+# production
+frontend/build
+
+# misc
+frontend/DS_Store
+frontend/*.pem
+
+# debug
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+frontend/.env.local
+
+# typescript
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
